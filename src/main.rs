@@ -116,6 +116,7 @@ fn select_with_skim(candidates: &[String]) -> Result<Vec<String>> {
     drop(tx_item);
 
     let selected = Skim::run_with(&options, Some(rx_item))
+        .filter(|output| !output.is_abort)
         .map(|output| {
             output
                 .selected_items
